@@ -1,4 +1,6 @@
-//Rafal - czytanie Joysticka i sterowanie silnikiem - czolg przod i tyl
+// Rafal - czytanie Joysticka i sterowanie silnikiem - czolg przod i tyl
+// Adam & Maks - dodanie wysyłania przez Radio do czołgu
+// Adam - dodanie biegów
 
 radio.setGroup(1)
 let m504 = 0
@@ -9,6 +11,33 @@ let kalib = 0
 let lpredkosc = 0
 let ppredkosc = 0
 let wyslij = ""
+let lbieg = 5
+let pbieg = 5
+doMalujBiegi(4, pbieg)
+doMalujBiegi(0, lbieg)
+
+
+input.onButtonPressed(Button.A, function () {
+    lbieg += 1
+    if (lbieg > 5) { lbieg = 1 }
+    doMalujBiegi(0, lbieg)
+})
+
+input.onButtonPressed(Button.B, function () {
+    pbieg += 1
+    if (pbieg > 5) { pbieg = 1 }
+    doMalujBiegi(4, pbieg)
+})
+
+function doMalujBiegi(kol: number, ile: number) {
+    for (let i = 0; i <= ile; i++) {
+        led.plot(kol, 4 - i)
+    }
+    for (let i = ile; i <= 5; i++) {
+        led.unplot(kol, 4 - i)
+    }
+}
+
 basic.forever(function () {
     m504 = pins.analogReadPin(AnalogPin.P2)
     m505 = pins.analogReadPin(AnalogPin.P1)
@@ -23,7 +52,7 @@ basic.forever(function () {
         lk = 0
         kalib = 0
     }
-    lpredkosc = Math.floor(kalib)
+    lpredkosc = Math.floor(kalib / (6 - lbieg))
     //lpredkosc = Math.map(kalib, 0, 1023, 0, 255)
     if (m505 > 510) {
         pk = 1
@@ -36,7 +65,7 @@ basic.forever(function () {
         pk = 0
         kalib = 0
     }
-    ppredkosc = Math.floor(kalib)
+    ppredkosc = Math.floor(kalib / (6 - pbieg))
     //ppredkosc = Math.map(kalib, 0, 1023, 0, 255)
     //led.plotBarGraph(
     //    lpredkosc,
@@ -68,9 +97,8 @@ basic.forever(function () {
     //serial.writeLine("l=" + parseInt(wyslij.substr(2, 3)) + " " + m504 + " w=" + parseInt(wyslij.charAt(0)))
     serial.writeLine(wyslij)
     radio.sendString(wyslij)
-    //serial.writeLine("p=" + parseInt(wyslij.substr(5, 3)) + " " + m505)
-    //serial.writeNumber(Math.floor((wyslij % 100000) / 10000))
 
-    basic.pause(100)
+    led.plot(2, 4)
+    basic.pause(10)
+    led.unplot(2, 4)
 })
- 
