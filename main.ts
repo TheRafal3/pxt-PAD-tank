@@ -40,37 +40,51 @@ function doMalujBiegi(kol: number, ile: number) {
 
 basic.forever(function () {
     m504 = pins.analogReadPin(AnalogPin.P2)
+
+    serial.writeNumber(m504)
     m505 = pins.analogReadPin(AnalogPin.P1)
-    if (m504 > 524) {
-        lk = 1
-        kalib = Math.map(m504, 524, 1023, 20, 255)
-    } else if (m504 < 510) {
-        lk = 0
-        kalib = Math.map(m504, 1, 510, 20, 255)
-        kalib = 275 - kalib
-    } else {
-        lk = 0
-        kalib = 0
-    }
-    lpredkosc = Math.floor(kalib / (6 - lbieg))
+
+
+
+
     //lpredkosc = Math.map(kalib, 0, 1023, 0, 255)
-    if (m505 > 510) {
+    if (m505 > 600) {
+        pk = 0
+        lk = 1
+        kalib = Math.map(m505, 600, 1023, 20, 255)
+        ppredkosc = 255
+        lpredkosc = 255
+    } else if (m505 < 400) {
         pk = 1
-        kalib = Math.map(m505, 510, 1023, 20, 255)
-    } else if (m505 < 500) {
-        pk = 0
-        kalib = Math.map(m505, 1, 500, 20, 255)
+        lk = 0
+        kalib = Math.map(m505, 1, 400, 20, 255)
         kalib = 275 - kalib
+        ppredkosc = 255
+        lpredkosc = 255
     } else {
-        pk = 0
-        kalib = 0
+        if (m504 > 584) {
+            lk = 1
+            kalib = Math.map(m504, 584, 1023, 20, 255)
+        } else if (m504 < 380) {
+            lk = 0
+            kalib = Math.map(m504, 1, 380, 20, 255)
+            kalib = 275 - kalib
+        } else {
+            lk = 0
+            kalib = 0
+        }
+        pk = lk
+        lpredkosc = Math.floor(kalib / (6 - lbieg))
     }
-    ppredkosc = Math.floor(kalib / (6 - pbieg))
+    //ppredkosc = Math.floor(kalib / (6 - pbieg))
     //ppredkosc = Math.map(kalib, 0, 1023, 0, 255)
     //led.plotBarGraph(
     //    lpredkosc,
     //    255
     //)
+
+    ppredkosc = lpredkosc
+
     wyslij = lk.toString()
     wyslij = wyslij + pk.toString()
 
