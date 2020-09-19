@@ -117,21 +117,21 @@ basic.forever(function () {
         switch(key)
         {
            case 1:serial.writeLine("S1 OK");
-                wyslij = wyslij + "S1";
+                wyslij = wyslij + "1";
                 break;
            case 2:serial.writeLine("S2 OK");
-                wyslij = wyslij + "S2";
+                wyslij = wyslij + "2";
                 break;
            case 3:serial.writeLine("S3 OK");
-                wyslij = wyslij + "S3";
+                wyslij = wyslij + "3";
                 break;
            case 4:serial.writeLine("S4 OK");
-                wyslij = wyslij + "S4";
+                wyslij = wyslij + "4";
                 break;
            case 5:serial.writeLine("S5 OK");
-                wyslij = wyslij + "S5";
+                wyslij = wyslij + "5";
                 break;
-           default: wyslij = wyslij + "  "; 
+           default: wyslij = wyslij + "0"; 
         }
       }
     }
