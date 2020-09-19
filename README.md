@@ -1,4 +1,4 @@
-# pxt-joystick
+# pxt-PAD-tank joystick do sterowania czolgiem
 
 
 
