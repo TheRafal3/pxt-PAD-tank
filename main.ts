@@ -165,8 +165,10 @@ basic.forever(function () {
     led.unplot(2, 4)
 })
 
-
-let adc_key_val =[835,860,890,920,1000]; // [S1, S2, S3, S4, S5] - Wartość odczytane odpowiadające przyciskom
+// RAFAL - wartości dla klawiatury
+//let adc_key_val =[835,860,890,920,1000]; // [S1, S2, S3, S4, S5] - Wartość odczytane odpowiadające przyciskom
+// MAKS - wartości dla klawiatury
+let adc_key_val =[850,870,900,930,980]; // [S1, S2, S3, S4, S5] - Wartość odczytane odpowiadające przyciskom
 let NUM_KEYS = 5; // ile przycisków
 let adc_key_in;
 let key = -1;
