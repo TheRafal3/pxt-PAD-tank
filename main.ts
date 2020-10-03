@@ -16,7 +16,7 @@ let pbieg = 5 // bieg prawej
 doMalujBiegi(4, pbieg)
 doMalujBiegi(0, lbieg)
 OLED12864_I2C.init(60) // inicjalizacja wyświetlacza (I2C - adres 60)
-OLED12864_I2C.showString(0, 0, "Hello!")
+OLED12864_I2C.showString(0, 0, "Hello, you have a access to 1 level!")
 basic.pause(1000)
 OLED12864_I2C.clear()
 
