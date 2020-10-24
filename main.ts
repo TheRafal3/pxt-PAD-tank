@@ -16,7 +16,7 @@ let pbieg = 5 // bieg prawej
 doMalujBiegi(4, pbieg)
 doMalujBiegi(0, lbieg)
 OLED12864_I2C.init(60) // inicjalizacja wyświetlacza (I2C - adres 60)
-OLED12864_I2C.showString(0, 0, "Hello, you have a access to 1 level!")
+OLED12864_I2C.showString(0, 0, "Hello, welcome aboard!")
 basic.pause(5000)
 OLED12864_I2C.clear()
 
@@ -53,12 +53,12 @@ basic.forever(function () {
 
     if (m505 > 600) { //kalibracja: 400-600 to ZERO, 600-1023 do przodu, 1-400 do tyłu
         lk = 1 // do przodu
-        kalib = Math.map(m505, 600, 1023, 20, 255) //minimalna prędkość 20
+        kalib = Math.map(m505, 584, 1023, 20, 255) //minimalna prędkość 20
         serial.writeLine("PRZOD LEWA")
         OLED12864_I2C.showString(0, 0, "P    ")
     } else if (m505 < 400) {
         lk = 0 // do tyłu
-        kalib = Math.map(m505, 1, 400, 20, 255) //minimalna prędkość 20
+        kalib = Math.map(m505, 1, 380, 20, 255) //minimalna prędkość 20
         kalib = 275 - kalib // sterowanie silnikiem jest od 20-255, więc odwracamy 
         serial.writeLine("TYŁ LEWA")
         OLED12864_I2C.showString(0, 0, "T    ")
