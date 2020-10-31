@@ -11,7 +11,7 @@ let kalib = 0
 let lpredkosc = 0 // prędkość lewej gąsienicy 20-255
 let ppredkosc = 0 // prędkość prawej gąsienicy 20-255
 let wyslij = ""
-let mbieg = 2 //Max. bieg
+let mbieg = 2 // max. bieg
 let lbieg = mbieg // bieg lewej
 let pbieg = mbieg // bieg prawej
 doMalujBiegi(4, pbieg)
