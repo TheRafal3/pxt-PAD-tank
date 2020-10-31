@@ -21,14 +21,14 @@ OLED12864_I2C.showString(0, 0, "Hello, welcome aboard!")
 basic.pause(5000)
 OLED12864_I2C.clear()
 
-// funkcja zmienia biegi - w kółko od 1->2
+// funkcja zmienia biegi - w kółko od 1->...->mbieg
 input.onButtonPressed(Button.A, function () {
     lbieg += 1
     if (lbieg > mbieg) { lbieg = 1 }
     doMalujBiegi(0, lbieg) // lewa gąsienica - kolumna 0 na wyświetlaczu LED
 })
 
-// funkcja zmienia biegi - w kółko od 1->2
+// funkcja zmienia biegi - w kółko od 1->...->mbieg
 input.onButtonPressed(Button.B, function () {
     pbieg += 1
     if (pbieg > mbieg) { pbieg = 1 }
