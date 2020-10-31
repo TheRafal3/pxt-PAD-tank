@@ -11,8 +11,9 @@ let kalib = 0
 let lpredkosc = 0 // prędkość lewej gąsienicy 20-255
 let ppredkosc = 0 // prędkość prawej gąsienicy 20-255
 let wyslij = ""
-let lbieg = 2 // bieg lewej
-let pbieg = 2 // bieg prawej
+let mbieg = 2
+let lbieg = mbieg // bieg lewej
+let pbieg = mbieg // bieg prawej
 doMalujBiegi(4, pbieg)
 doMalujBiegi(0, lbieg)
 OLED12864_I2C.init(60) // inicjalizacja wyświetlacza (I2C - adres 60)
@@ -23,14 +24,14 @@ OLED12864_I2C.clear()
 // funkcja zmienia biegi - w kółko od 1->2
 input.onButtonPressed(Button.A, function () {
     lbieg += 1
-    if (lbieg > 2) { lbieg = 1 }
+    if (lbieg > mbieg) { lbieg = 1 }
     doMalujBiegi(0, lbieg) // lewa gąsienica - kolumna 0 na wyświetlaczu LED
 })
 
 // funkcja zmienia biegi - w kółko od 1->2
 input.onButtonPressed(Button.B, function () {
     pbieg += 1
-    if (pbieg > 2) { pbieg = 1 }
+    if (pbieg > mbieg) { pbieg = 1 }
     doMalujBiegi(4, pbieg)  // prawa gąsienica - kolumna 4 na wyświetlaczu LED
 })
 
@@ -41,7 +42,7 @@ function doMalujBiegi(kol: number, ile: number) {
     for (let i = 0; i <= ile; i++) {
         led.plot(kol, 4 - i) //zaświecamy
     } 
-    for (let i = ile; i <= 2; i++) {
+    for (let i = ile; i <= mbieg; i++) {
         led.unplot(kol, 4 - i) //gasimy niepotrzebne
     }
     OLED12864_I2C.showNumber(kol, 2, ile) // dodatkowo prezentacja na wyświetlaczu OLED
@@ -68,7 +69,7 @@ basic.forever(function () {
         //serial.writeLine("STOP LEWA")
         OLED12864_I2C.showString(0, 0, "S    ")
     }
-    lpredkosc = Math.floor(kalib / (3 - lbieg)) // tutaj trzebya wymyśleć jak zrobić dobrze biegi
+    lpredkosc = Math.floor(kalib / (mbieg + 1 - lbieg)) // tutaj trzebya wymyśleć jak zrobić dobrze biegi
     OLED12864_I2C.showNumber(1, 0, lpredkosc)
     
     if (m504 > 584) { //kalibracja: 380-584 to ZERO, 584-1023 do przodu, 1-380 do tyłu 
@@ -88,7 +89,7 @@ basic.forever(function () {
         //serial.writeLine("STOP PRAWA")
         OLED12864_I2C.showString(6, 0, "S   ")
     }
-    ppredkosc = Math.floor(kalib / (3 - pbieg))
+    ppredkosc = Math.floor(kalib / (mbieg + 1 - pbieg))
     OLED12864_I2C.showNumber(7, 0, ppredkosc)
     
     //budujemy komunikat do wysłania:
